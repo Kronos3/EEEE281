@@ -1,0 +1,4 @@
+import sympy
+import sympytex
+sympytex.openout('Lab1_Spring2018_TechMemoTemplate')
+sympytex.endofdoc()
