@@ -44,7 +44,7 @@
 
 \Large
 \textbf{From:} Andrei Tumbar [Computer Engineering] \\
-\textbf{To: } Section 2 TA: [edit] \\
+\textbf{To: } Section 2 TA: LJ Boone, Harrison Keats \\
 \textbf{Date: } Performed: 02/04/2020  Due: 02/11/2020 \\
 \textbf{Subject: } Lab 1\\
 \textbf{Lab Partner(s): } N/A\\
@@ -90,24 +90,29 @@
 In the first part of this exercise, the software portion, a circuit with three resistors (two 5.6 k\si{\ohm}, 1 k\si{\ohm}) in series was designed in PSPICE, a circuit design, and simulation program. The resistors were listed with tolerances. A simulation was run to display a histogram of likely outcomes given the tolerance and resistance rating of each resistor. A Monte Carlo simulation displayed a statistical analysis of the likely outcomes of testing the circuit. In the hardware portion of the exercise, the circuit was implemented on a breadboard. The voltage was measured across each resistor given a supplied voltage of 5V. An effective resistance was measured along with resistance from each resistor. Finally, the voltage of each node relative to ground was measured and recorded. These experimentally determined values were compared to those calculated using the voltage division laws to analyze the circuit.
 
 \section {Introduction and Theory}
-
-Write a paragraph to describe the objectives of the laboratory.  After this, follow the section headings in the template, including the required figures.
+The objective of this lab was to show how resistors in series will add overall resistance and show voltage division. Also, the Monte Carlo simulation showed how resistance tolerance can alter data.
 
 \subsection{Theory: Circuits Investigated}
 
-In this section, you should introduce the reader to the circuits you investigated in the laboratory, and demonstrate the theoretical value of the circuits. 
+This circuit had a \(5\,V\) power source followed by two \(5.6\,k\si{\ohm}\) resistors followed by a \(1\,k\si{\ohm}\) resistor. The node between the final \(1\,k\si{\ohm}\) and the voltage source was grounded.
 
-\begin{itemize}
-	\item Include a figure that illustrates  Circuit 1's schematic.  To simplify the number of figures you will need later in the report, it is recommended that you use the schematic diagram you build in PSPICE for each circuit.  The figure should have a caption below as illustrated in Figure \ref{Fig:Circuit Schematics}. Note that a 2 inch blank space has been left for placing the figure's graphics.
-	\begin{figure}[htbp]
-		\centering
-		\vspace{2in}
-		\caption{Schematic diagram for Circuit 1. }
-		\label{Fig:Circuit Schematics}
-	\end{figure}
-	
-	\item The schematic of the circuit should be described here in a short paragraph.  An example of the text is in the lab handout, Section 4.1.  As a guide, rephrase the text in your report. 
-\end{itemize}
+\begin{figure}[h!]
+\begin{center}
+\begin{circuitikz}
+\draw
+(0,4) to[battery, l_=5V] (0,0)
+(0,4) to[R, -*, l_=\(R_1\,\text{$=$}\, 5.6\,k\si{\ohm}\), v^=$V_1$] (5,4) node[label={[font=\footnotesize]above:A}] {}
+to[R, -*, l^=\(R_2\,\text{$=$}\, 5.6\,k\si{\ohm}\), v_=$V_2$] ++(5,0) node[label={[font=\footnotesize]above:B}] {}
+to[R, l^=\(R_L\,\text{$=$}\, 1\,k\si{\ohm}\), v_=$V_L$] ++(0,-4)
+-- ++(-5,0) node[ground]{} -- (0,0)
+;
+\end{circuitikz}
+\end{center}
+\caption{Circuit configuration given $R_1$, $R_2$, and $R_3$ with ground and voltage supply.}
+\end{figure}
+
+This is a simple series circuit with three resistors. The negative pole on the voltage supply is connected to ground. The voltage is set to $5\,V$. The first two resistors are both $5.6\,k\si\ohm$ resistors. The third resistor is a $1\,k\si\ohm$.
+
 %\subsubsection{Theory: Equivalent Resistance}
 %\begin{itemize}
 %	\item Calculate the series resistance for each of the circuits as hand calculation. 
@@ -125,22 +130,23 @@ In this section, you should introduce the reader to the circuits you investigate
 %\end{itemize}
 
 \subsubsection{Theory: Kirchhoff's Voltage Law and Voltage Division}
-In this section, you should briefly introduce the reader to the concepts of Kirchhoff's Voltage Law and Voltage Division.  You do NOT need to derive expressions for each here. For each circuit:
-\begin{itemize}
-	\item Determine the voltage drop across \textbf{each} circuit element via hand calculations.  \textbf{Use this information to determine the nodal voltages.}
-	\item Integrate the calculations into the text of the document. You do not necessarily need to show every detail here. The final results of the calculations should be listed in Table  at the end of the report.
-	\item Please \textbf{DO NOT} include a scanned image of hand calculations for this report.  They should be typed into the text, with equation numbers on the right hand side. %For example, in the case of Circuit 1, the text might say (see next bullet):
-	%\item The voltage across the load resistor in Circuit 1 may be determined from voltage division as illustrated in Eq. \ref{Eq:VoltageDivisionExample}.
-%	\begin{equation}
-%		\label{Eq:VoltageDivisionExample}
-%		V_{RL}=\left(V_{supply}\right)\frac{R_L}{R_1+R_2+R_L}
-%		       =\left(5 ~\si{\volt}\right) 
-%		       \frac{1000 ~\si{\ohm}}
-%		       {5600~\si{\ohm}+5600 ~\si{\ohm}+1000~\si{\ohm}}
-%		       =\mbox{\textbf{SOLVE}}
-%	\end{equation}
-%	\item Repeat this calculation for Circuit 2 by appropriately including the second load resistor in the equation.  
-\end{itemize}
+Kirchoff's Voltage law is the concept that the sum of the voltage drops in any loop equals zero. A loop is defined as a path where none of the nodes are visited more than once. The path must reach the original point. The idea of Voltage Divison states that in series, the voltage drop across each resistor is equal to the total voltage drop multiplied by the ratio of the current resistance to total resistance.
+
+\begin{equation}
+	\label{eq:1}
+	V_1 = 5\,V \frac{5.6\,k\si\ohm}{5.6\,k\si\ohm + 5.6\,k\si\ohm + 1\,k\si\ohm} = 2.295\,V
+\end{equation}
+\begin{equation}
+	\label{eq:2}
+	V_2 = 5\,V \frac{5.6\,k\si\ohm}{5.6\,k\si\ohm + 5.6\,k\si\ohm + 1\,k\si\ohm} = 2.295\,V
+\end{equation}
+\begin{equation}
+	\label{eq:3}
+	V_L = 5\,V \frac{1\,k\si\ohm}{5.6\,k\si\ohm + 5.6\,k\si\ohm + 1\,k\si\ohm} = 0.410\,V
+\end{equation}
+
+$V_A$ can be found by moving from the bottom node connected to ground to the node labeled $A$. There is a $5\,V$ gain from the voltage source, then there is a $2.295\,V$ drop across $R_1$. Therefore the voltage $V_A$ is $2.705$ relative to ground. The same method was used to find the voltage $V_B$ which evaluated to be $0.410\,V$.
+
 %\subsubsection{Theory: Kirchhoff's Current Law and Current Division}
 %In this section, you should briefly introduce the reader to the concepts of Kirchhoff's Current Law and Current Division.  You do NOT need to derive expressions for each here. 
 %	\begin{itemize}
@@ -155,31 +161,25 @@ In this section, you should briefly introduce the reader to the concepts of Kirc
 %	\item There should be one equation for each circuit, and a brief summary.  
 %\end{itemize}
 \subsection{Theory: PSPICE Simulation Summary}
-Begin by providing a 1 paragraph description of the PSPICE setup. Was a DC simulation used, transient simulation, etc.?  Which \textbf{libraries} and \textbf{PSPICE elements} were used in the simulation? As you develop your lab reports this term, aspects of this text may be applicable in future reports.  In order to determine the libraries used, you can find the information when you look at the properties of each element.  There will be a reference to a ``.olb'' file.  This is the library name.   Look to the Appendix in Prof. Rommel's PSPICE tutorial if you are not sure as to the names/nomenclature.  For example, the resistors used are ``R/ANALOG'' from the \textbf{analog.olb} library. 
- 
+%Begin by providing a 1 paragraph description of the PSPICE setup. Was a DC simulation used, transient simulation, etc.?  Which \textbf{libraries} and \textbf{PSPICE elements} were used in the simulation? As you develop your lab reports this term, aspects of this text may be applicable in future reports.  In order to determine the libraries used, you can find the information when you look at the properties of each element.  There will be a reference to a ``.olb'' file.  This is the library name.   Look to the Appendix in Prof. Rommel's PSPICE tutorial if you are not sure as to the names/nomenclature.  For example, the resistors used are ``R/ANALOG'' from the \textbf{analog.olb} library. 
+
+The PSPICE simulation began with a design of the circuit. A voltage supply along with three resistors were placed. A $10\percent$ tolerance was added to each of the resistors. The resistance was set for each element. The nodes $A$ and $B$ were named as such. A ground was placed according to the circuit diagram in figure. The PSPICE setup used the libraries imported from the Circuits 1 library from the lab computer. The libraries were called \textbf{analog.olb}, \textbf{opamp.olb}, \textbf{source.olb}, and \textbf{special.olb}. The components used were ``R/ANALOG'' from the \textbf{analog.olb} for the resistors, ``VDC/SOURCE'' from the \textbf{source.olb} for the voltage source and ``O/CAPSYM'' from the \textbf{special.olb} for ground.
+
 \subsubsection{PSPICE: DC Simulation of Circuit 1}
 
-In this section, include: 
-\begin{itemize}
-	\item A figure with a screen shot of the schematic in PSPICE with  voltage markers (Fig. \ref{Fig:Circuit1VoltageMarkers}).  
-	%\textbf{For simplicity, your  current and power data will only be reported on the figures with the current and power markers.}
-	\begin{figure}[htbp]
-		\centering
-		\vspace{2in} % % % % % Replace with Include graphics statement
-		\caption{Circuit 1 with voltage markers. }
-		\label{Fig:Circuit1VoltageMarkers}
-	\end{figure}
-	\item Briefly comment about the results and whether they agree with your hand calculations. This should be one to two sentences in length and written in paragraph form. 
-	\item The PSPICE values will be reported  in Table \ref{Table:Circuit1}.
-\end{itemize}
-		\begin{table}[h!]
-			\centering
-			\caption{Simulation results for Circuit 1.}
-			\label{Table:Circuit1}
-			%\begin{tabular}{llllll}
-		\begin{tabular}{|c||c|c|c|}
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[height=10cm]{schematic}
+	\caption{Circuit 1 with voltage markers.}
+	\label{Fig:Circuit1VoltageMarkers}
+\end{figure}
+
+\begin{table}[h!]
+	\caption{Simulation results for Circuit 1.}
+	\begin{center}
+		\begin{tabular}{|c||c|}
 			\hline
-			Node & Voltage (\si{\volt})  \\
+			Node & Voltage (\si{\volt}) \\
 			\hline
 			Supply & 5 \\	 
 			\hline 
@@ -188,120 +188,132 @@ In this section, include:
 			Node B & 0.411 \\	 
 			\hline			
 		\end{tabular}
-		\end{table}	
-%\subsubsection{PSPICE: SPICE Simulation of Circuits 2 }
-%\begin{itemize}
-%	\item A figure with a screen shot of the schematic in PSPICE with (a) voltage markers, (b) current markers, and (c) power makers.
-%	\item Briefly comment about the results and whether they agree with your hand calculations. 
-%	\item The PSPICE values will be reported  in Tables \ref{Table:Circuit2}.
-%\end{itemize}
-%		\begin{table}[h!]
-%			\centering
-%			\caption{Simulation results for Circuit 2.}
-%			\label{Table:Circuit2}
-%			%\begin{tabular}{llllll}
-%		\begin{tabular}{|c||c|c|c|}
-%			\hline
-%			Node & Voltage (\si{\volt})  \\
-%			\hline
-%			Supply & \\	 
-%			\hline 
-%			Node A &  \\	 
-%			\hline
-%			Node B &  \\	 
-%			\hline			
-%		\end{tabular}
-%		\end{table}
+	\end{center}
+	\label{Table: Circuit 1}
+\end{table}	
+
+The results in Table \ref{Table: Circuit 1} agree with the hand calculations in equations \ref{eq:1}\,-\,\ref{eq:3}.
+
 \subsubsection{PSPICE: Monte Carlo Simulation for Circuit 1}
-In this section, include: 
-\begin{itemize}
-	\item A figure of the histogram resulting from the Monte Carlo Simulation. 
-	\item \textbf{Explain what the results mean. }  This is here because it will help to explain any percent error that you see in the hardware portion.
-	\item Report the mean and sigma from the Monte Carlo histogram.
-\end{itemize}
-	\begin{figure}[htbp]
+
+\begin{figure}[htbp]
 	\centering
 	\includegraphics[width=\textwidth]{simulation}
-	\caption{Monte Carlo of Circuit 1. }
+	\caption{Monte Carlo simulation of Circuit 1.}
 	\label{Fig:Circuit1MonteCarlo}
 \end{figure}
 
+The Monte Carlo simulation shown in \ref{Fig:Circuit1MonteCarlo} shows a probalility curve for likely measurements from Circuit 1. The highest probalility can be seen in the highest column at around $0.407\,\si\volt$ This is very close to the calculated value of $0.410\,\si\volt$. The bars around the center show other likely measurements based on the tolerance set. The mean value found through the Monte Carlo simulation was $0.411\,\si\volt$ and the sigma was $0.026$. 
+
 \section{Hardware Experiment: Results and Discussion}
-This section of the report should present what was done in hardware.  A reader should be able to recreate an experiment from the detail present.  One section discusses the equipment used in the experiment. The remaining sections discuss the results for each circuit.
+The circuit board was set up by connecting the power rail on the board to the 6V source on the DC power supply. The positive terminal on the rail was connected to the first $5.6\,k\si\ohm$ resistor. This first resistor was then put in series with the second $5.6\,k\si\ohm$ resistor and finally the $1\,k\si\ohm$ resistor. The node after the $1\,k\si\ohm$ resistor was connected to the negative terminal on the power rail. \par
+
+The power supply was configured to $5\,\si\volt$ and the current was limited to $0.1\,\si\ampere$. This was done to prevent overheating in the case of a short circuit.
+
+\pagebreak
+
 \subsection{Equipment Used in the Laboratory}
-Write a short paragraph to detail the equipment used in the laboratory, and specific model numbers. Ideally, you should create a table of the equipment which should be referred to in text (See Table \ref{Table:Equipment} as an example).  The room location where the experiment was performed should be included.  Note that this should be a part of all Tech Memos, as it is an essential piece for other users to replicate your experiment.  \textbf{As you will be likely using the same equipment throughout the term, once the text/tables are established, you may reuse the information with the permission of your instructor/TA.}		
-	\begin{table}[h!]
-		\centering
-		\caption{Equipment/Software required for Lab 1.}
-		\label{Table:Equipment}
-		%\begin{tabular}{llllll}
-		\begin{tabular}{|c||c|c|c|c|}
-			\hline
-			Item & Tool & Room      \\
-			\hline
-			Simulation & OrCAD Capture CIS & All Open EE Labs   \\	 
-			\hline 
-			DC Power Supply&  Agilent E3630A  & 09-3170   \\	
-			\hline  
-			DC Power Supply & Agilent E3631A   & 09-3200 \\ 
-			\hline 
-			Multimeter & Agilent 34401A & 09-3170, 09-3200 \\
-			\hline
-			%				Oscilloscope & Textronix TDS2012C & 09-3200  \\
-			%				\hline
-			%				Oscilloscope & Agilent DSO 33120A & 09-3170  \\
-			%				\hline
-			%				
-		\end{tabular}
-	\end{table}
+%Write a short paragraph to detail the equipment used in the laboratory, and specific model numbers. Ideally, you should create a table of the equipment which should be referred to in text (See Table \ref{Table:Equipment} as an example).  The room location where the experiment was performed should be included.  Note that this should be a part of all Tech Memos, as it is an essential piece for other users to replicate your experiment.  \textbf{As you will be likely using the same equipment throughout the term, once the text/tables are established, you may reuse the information with the permission of your instructor/TA.}
+
+\begin{table}[htbp]
+	\setlength{\tabcolsep}{14pt}
+	\centering
+	\caption{Equipment/Software required for Lab 1.}
+	\label{Table:Equipment}
+	%\begin{tabular}{llllll}
+	\begin{tabular}{|c||c|c|c|c|}
+		\hline
+		Item & Tool & Room      \\
+		\hline
+		Simulation & OrCAD Capture CIS & 09-3200   \\
+		\hline  
+		DC Power Supply & Agilent E3631A   & 09-3200 \\ 
+		\hline 
+		Multimeter & Agilent 34401A & 09-3200 \\
+		\hline
+		%				Oscilloscope & Textronix TDS2012C & 09-3200  \\
+		%				\hline
+		%				Oscilloscope & Agilent DSO 33120A & 09-3170  \\
+		%				\hline
+		%				
+	\end{tabular}
+\end{table}
+
+OrCAD was used to create the circuit and the perform the Monte Carlo simulation. The DC Power Supply shows in Table \ref{Table:Equipment} was used in the hardware portion to power the circuit. The multimeter shown was used to measure the voltage and resistances across each of the resistors.
 
 \subsection{Hardware Results/Discussion Circuit 1}	
-  At least a paragraph should be included here to discuss the results. Some points to include are listed below:
-\begin{itemize}
-	\item Present the nodal voltages measured in Table \ref{Table:ResultsCircuit1}.
-		\begin{table}[h!]
-			\centering
-			\caption{Experimental nodal voltages for Circuit 1.}
-			\label{Table:ResultsCircuit1}
-			%\begin{tabular}{llllll}
-			\begin{tabular}{|c||c|c|c|}
-				\hline
-			Node & Voltage (\si{\volt}) & Percent Error With PSPICE \\
-			\hline
-			Supply & 5.002 &\\	 
-			\hline 
-			Node A & 2.708 &\\	 
-			\hline
-			Node B & 0.405 &\\	 
-			\hline			
-			\end{tabular}
-		\end{table}
-	\item Present the differential voltages measured in Table \ref{Table:DerivedResultsCircuit1}.  %Use Ohm's law as we did in the laboratory to complete the table.
-			\begin{table}[h!]
-				\centering
-				\caption{Differential voltages and measured resistances for Circuit 1.}
-				\label{Table:DerivedResultsCircuit1}
-				%\begin{tabular}{llllll}
-				\begin{tabular}{|c||c|c|c|c|c|}
-					\hline
-					Element & Component & Measured & Voltage  \\
-					& Value & Resistance (\si{\ohm}) & (\si{\volt})     \\
-				
-					\hline
-					Supply & 5~\si{\volt} & N/A & 5.002 \\	 
-					\hline 
-					$R_1$ & 5600~\si{\ohm} & 5560 & 2.292 \\	 
-					\hline
-					$R_2$ & 5600~\si{\ohm} & 5576 & 2.303 \\
-					\hline
-					$R_L$ & 1000~\si{\ohm} & 1005 & 0.405 \\
-					\hline
-				\end{tabular}
-			\end{table}
-	\item Kirchhoff's Voltage Law (sum of all voltages around a closed loop=0) is satisfied.   Provide a simple calculation to back this up.
+%At least a paragraph should be included here to discuss the results. Some points to include are listed below:
+
+
+
+%\begin{itemize}
+%	\item Present the nodal voltages measured in Table \ref{Table:ResultsCircuit1}.
+%	\item Present the differential voltages measured in Table \ref{Table:DerivedResultsCircuit1}.  %Use Ohm's law as we did in the laboratory to complete the table.
+
+%	\item Kirchhoff's Voltage Law (sum of all voltages around a closed loop=0) is satisfied.   Provide a simple calculation to back this up.
 %	\item Power conservation (sum of all powers around a closed loop = 0) is satisfied.
-	\item Compare the measured result to the PSPICE for the \textbf{nodal voltages} reported in Table \ref{Table:ResultsCircuit1}. Perform an error analysis and report the data in the table.
-\end{itemize}
+%	\item Compare the measured result to the PSPICE for the \textbf{nodal voltages} reported in Table \ref{Table:ResultsCircuit1}. Perform an error analysis and report the data in the table.
+%\end{itemize}
+
+The low error from PSPICE indicate that the resistors did not vary too far from the listed resistances. The Node B voltage had the highest error because that resistor had the lowest value. Therefore the likelihood of error is higher than the other two.
+
+\begin{equation}
+\label{eq:error}
+E_{percent} = \frac{|V_{pspice} - V_{measured}|}{V_{pspice}}
+\end{equation}
+
+Equation \ref{eq:error} was used to calculate the error each of the measured voltages in Table \ref{Table:ResultsCircuit1}.
+
+\begin{table}[h!]
+	\caption{Experimental nodal voltages for Circuit 1.}
+	%\begin{tabular}{llllll}
+	\begin{center}
+		\begin{tabular}{|c||c|c|c|}
+			\hline
+		Node & Voltage (\si{\volt}) & Percent Error With PSPICE \\
+		\hline
+		Supply & 5.002 & $0.04 \percent$\\	 
+		\hline 
+		Node A & 2.708 & $0.1\percent$\\	 
+		\hline
+		Node B & 0.405 & $1.5\percent$\\	 
+		\hline			
+		\end{tabular}
+	\end{center}
+	\label{Table:ResultsCircuit1}
+\end{table}
+
+\begin{table}[h!]
+	\caption{Differential voltages and measured resistances for Circuit 1.}
+	\label{Table:DerivedResultsCircuit1}
+	%\begin{tabular}{llllll}
+	\begin{center}
+		\begin{tabular}{|c||c|c|c|c|c|}
+			\hline
+			Element & Component & Measured & Voltage  \\
+			& Value & Resistance (\si{\ohm}) & (\si{\volt})     \\
+	
+			\hline
+			Supply & 5~\si{\volt} & N/A & 5.002 \\	 
+			\hline 
+			$R_1$ & 5600~\si{\ohm} & 5560 & 2.292 \\	 
+			\hline
+			$R_2$ & 5600~\si{\ohm} & 5576 & 2.303 \\
+			\hline
+			$R_L$ & 1000~\si{\ohm} & 1005 & 0.405 \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{table}
+
+When Kirchoff's Voltage Law is applied to the measured value, the following is observered:
+
+\begin{equation}
+\label{eq:kirchoff}
+2.292\,\si\volt + 2.303\,\si\volt + 0.405\,\si\volt - 5.002\,\si\volt = -0.002\,\si\volt
+\end{equation}
+
+Equation \ref{eq:kirchoff} shows that Kirchoff's Voltage law holds for this circuit.
 
 %\subsection{Hardware Results/Discsussion Circuit 2}	
 % At least a paragraph should be included here to discuss the results. Some points to include are listed below:
@@ -357,14 +369,20 @@ Write a short paragraph to detail the equipment used in the laboratory, and spec
 %	\item Kirchhoff's Current Law (sum of currents entering a node is equal to 0) is satisfied. Show that current division can be used to explain the splitting of currents between $R_L$ and $R_{L2}$.
 %	\item Compare the measured result to the PSPICE and theoretical calculations for the \textbf{nodal voltages} reported in Table \ref{Table:ResultsCircuit2}. Perform an error analysis and report the data in the table.
 %\end{itemize}
-	
-	\section{Conclusion}
-	Provide a 1 paragraph summary of the laboratory experiment.  What were the major conclusions for each circuit topology?  Also did the theory agree with the experiment?  The conclusion is a revised version of the abstract.
+
+\pagebreak
+
+\section{Conclusion}
+%	Provide a 1 paragraph summary of the laboratory experiment.  What were the major conclusions for each circuit topology?  Also did the theory agree with the experiment?  The conclusion is a revised version of the abstract.
+
+The purpose of this exercise was to show the use of voltage division and kirchoff's law as well as show error analysis with PSPICE. A circuit was designed with three resistors in series and run through a Monte Carlo simulation to show likely measurements. The circuit was then built on a breadboard and measurements were compared to PSPICE. Percent error was analysed to be within the tolerance rated on the resistor.
 	
 	\section{Acknowledgments}
-	Acknowledge \textbf{any} source of help received in the experiment/writing the report.  This should certainly include your lab partner/teaching assistant/instructor.  It may also include other classmates/study partners. State briefly what the nature of the help was.
+	\begin{itemize}
+	\item Petre Tumbar helped through the PSPICE Monte Carlo setup.
+	\item wikibooks.org helped with the \LaTeX\;code.
+	\end{itemize}
 	
-	\textbf{Your report should include references to appropriate pages in the text, as well as any other sources, websites/etc. consulted in the preparation of the report.}
 \begin{thebibliography}{9}
 	\bibitem{AlexanderSadiku}
 	C.K. Alexander, and M.K.O. Sadiku,
@@ -372,8 +390,7 @@ Write a short paragraph to detail the equipment used in the laboratory, and spec
 	McGraw Hill, pp. xx-yy(EDIT), 2009.
 	\bibitem{RommelLab}
 	S. Rommel,
-	\emph{EEEE 281 Lab 1 Lecture notes},
-	slides xx-yy, Spring 2015.
+	\emph{EEEE 281 Lab 1 Lecture notes}, Spring 2015.
 \end{thebibliography}
 
 \end{document}
