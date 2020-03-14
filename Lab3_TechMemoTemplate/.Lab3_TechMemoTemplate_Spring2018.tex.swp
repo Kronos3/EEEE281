@@ -107,35 +107,68 @@ The scope of this experiment was to find the equivalent Thevenin circuit by meas
 %	\item This description can be short (a few sentences in length).
 %\end{itemize}
 
-The circuit in question 
+The circuit in question is one consisting of seven resistors. A list of parameters controls the value of each resistor. Four different variations of the circuit were designed to gain proper measurements in the simulations.
+
+\begin{figure}[h!]
+\begin{center}
+\begin{circuitikz}
+
+\draw (0,4) to[battery, *-*, l_=$12\,\si\volt$] (0,0)
+	  (0,4) coordinate(A)
+	  -- ++(0,1.5) to[R, *-*, a^=$R_1$,l_=$5.6\,k\si\ohm$] ++(8,0) coordinate (B)
+	  (A) to[R, *-*, a^=$R_2$,l_=$5.6\,k\si\ohm$] ++(4,0)
+	  coordinate (C1)
+	  
+	  to[R, *-*, a^=$R_3$,l_=$5.6\,k\si\ohm$] ++(4,0) coordinate(C)
+	  
+	  (B) -- (C)
+	  to[R, *-*, a^=$R_L$,l_=$5.6\,k\si\ohm$] ++(0,-4)
+	  to[R, *-*, a^=$R_5$,l_=$5.6\,k\si\ohm$] ++(-4,0) coordinate(D)
+	  to[R, *-*, a^=$R_4$,l_=$5.6\,k\si\ohm$] ++(-4,0)
+	  (C1) to[R, *-*, a^=$R_6$,l_=$5.6\,k\si\ohm$] (D)
+	  
+	  (0,0) node[ground]{}
+;
+
+\end{circuitikz}		
+
+\label{fig:circuit}
+
+\end{center}
+\end{figure}
+
+Figure \ref{fig:circuit} depicts the circuit in question. All resistors are $5.6\,k\si\ohm$ and the load resistor is labeled $R_L$. A $12\,\si\volt$ power source is connected to power the circuit.
 
 %\subsection{Theory: Hand Calculations and PSPICE of Th\'evenin Equivalent Circuit}
 %\colorbox{yellow}{\textcolor{blue}{Hand calculations are \textbf{not} required for this lab report.}}
 %
 \subsection{Theory: PSPICE Simulation Summary}
-Begin by providing a 1 paragraph description of the PSPICE setup.  Which \textbf{libraries} and \textbf{PSPICE elements} were used in the simulation? You can borrow from the text of your first tech memo here.  If you do so, please be sure to cite the tech memo. Note the libraries used. You can find the information when you look at the properties of each element.  There will be a reference to a ``.olb'' file.  This is the library name. 
+%Begin by providing a 1 paragraph description of the PSPICE setup.  Which \textbf{libraries} and \textbf{PSPICE elements} were used in the simulation? You can borrow from the text of your first tech memo here.  If you do so, please be sure to cite the tech memo. Note the libraries used. You can find the information when you look at the properties of each element.  There will be a reference to a ``.olb'' file.  This is the library name. 
 
-Include a description of the resistor sweep.  Specifically, what is the funcction of the \textbf{PARAMETER/SPECIAL} element?   Also, what type of simluation was run? What were the start/stop resistor values? What was the step size, and was it linearly or logarithmically varied?    Comment about the line fit in Excel (or whatever software was used to perform the linear regression).
+The PSPICE simulation began with a design of the circuit. The PSPICE setup used the libraries imported from the Circuits 1 library from the lab computer. The libraries were called \textbf{analog.olb}, \textbf{opamp.olb}, \textbf{source.olb}, and \textbf{special.olb}. The components used were ``R/ANALOG'' from the \textbf{analog.olb} for the resistors, ``VDC/SOURCE'' from the \textbf{source.olb} for the voltage source and ``O/CAPSYM'' and ``PARAMETER/SPECIAL'' from the \textbf{special.olb} for ground.
 
-The lab handout called for using parameters in the tutorial, which were edited during your prelab to match the resistors in this lab.  What changes were made to the parameters?  Also, why were unique names given for Net Aliases in each circuit?
+%Include a description of the resistor sweep.  Specifically, what is the function of the \textbf{PARAMETER/SPECIAL} element?   Also, what type of simluation was run?What were the start/stop resistor values? What was the step size, and was it linearly or logarithmically varied?    Comment about the line fit in Excel (or whatever software was used to perform the linear regression).
+
+A parameter list using the ``PARAMETER/SPECIAL'' component was used to allow the values of each resistor be easily changed. Rcommon controlled the value of every resistor apart from $R_6$ and $R_L$ A resistor sweep was performed in the PSPICE so that the voltage across $R_L$ could be measured for varying values of $R_L$. The slope of the curve would yield the Thevenin resistance while the intercept would represent the Thevenin voltage.
+
+%The lab handout called for using parameters in the tutorial, which were edited during your prelab to match the resistors in this lab.  What changes were made to the parameters?  Also, why were unique names given for Net Aliases in each circuit?
 \subsubsection{Theory: PSPICE Schematic Diagram}
-Since the prelab called for having all 4 circuits on the same page, you may place two copies of the schematic here as listed in Figs. \ref{Fig:SchematicVoltMarkers} and \ref{Fig:SchematicCurrentMarkers}
-\begin{figure}[h]
-	\centering
-	\vspace{2in}
-	\caption{Screen shot of the PSPICE schematic with voltage markers.}
-	\label{Fig:SchematicVoltMarkers}
+%Since the prelab called for having all 4 circuits on the same page, you may place two copies of the schematic here as listed in Figs. \ref{Fig:SchematicVoltMarkers} and \ref{Fig:SchematicCurrentMarkers}
+
+\begin{figure}[h!]
+	\begin{center}
+		\includegraphics[width=\textwidth]{schematic_1}
+		\caption{Screen shot of the PSPICE schematic with voltage markers.}
+		\label{Fig:SchematicVoltMarkers}
+	\end{center}
 \end{figure} 
 
-\begin{figure}[h]
-	\centering
-	\vspace{2in}
-	\caption{Screen shot of the PSPICE schematic with current markers.}
-	\label{Fig:SchematicCurrentMarkers}
-\end{figure}
-Include a brief description of the figures (which subcircuit is which-i.e., The upper right schematic diagram is the Variable Load).
+%Include a brief description of the figures (which subcircuit is which-i.e., The upper right schematic diagram is the Variable Load).
+
+The top left schematic is the full circuit. The top right shows the circuit needed to calculate the Thevenin voltage. A break can be seen where the load resistor was. The bottom left depicts a test source being added to the circuit with all of the independent power sources removed. This is used to find the equivalent resistance of the circuit. The final circuit is one were there is a short across the $R_L$ to measure the current through the point when the resistance is $0\,\si\ohm$.
+
 \subsubsection{Theory: PSPICE Simulation Varying Load Circuit}
- In this section, include: 
+ %In this section, include: 
  \begin{itemize}
  	\item A figure with the plot of $R_L$ vs. $v_{L}$ from PSPICE.
  	\item A figure with the corresponding linear regression in Excel that illustrates the resulting scatter plot and extraction of $R_{th}$. 
