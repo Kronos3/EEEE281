@@ -166,19 +166,19 @@ A parameter list using the ``PARAMETER/SPECIAL'' component was used to allow the
 %Include a brief description of the figures (which subcircuit is which-i.e., The upper right schematic diagram is the Variable Load).
 
 The top left schematic is the full circuit. The top right shows the circuit needed to calculate the Thevenin voltage. A break can be seen where the load resistor was. The bottom left depicts a test source being added to the circuit with all of the independent power sources removed. This is used to find the equivalent resistance of the circuit. The final circuit is one were there is a short across the $R_L$ to measure the current through the point when the resistance is $0\,\si\ohm$.
-
+\pagebreak
 \subsubsection{Theory: PSPICE Simulation Varying Load Circuit}
  %In this section, include: 
 
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[width=\textwidth]{simulation}
+		\includegraphics[height=5cm]{simulation}
 		\caption{Screen shot of the PSPICE resistor sweep simulation.}
 		\label{Fig:SimulationSweep}
 	\end{center}
 \end{figure}
 
-Figure \ref{Fig:SimulationSweep} shows the voltage curve as the resistor sweep simulation was calculated. A number of different resistance values were used to calculate the voltage across $R_L$.\\\\\\
+Figure \ref{Fig:SimulationSweep} shows the voltage curve as the resistor sweep simulation was calculated. A number of different resistance values were used to calculate the voltage across $R_L$.
 
 % \begin{itemize}
 % 	\item A figure with the plot of $R_L$ vs. $v_{L}$ from PSPICE.
@@ -205,7 +205,7 @@ By graphing the voltage vs current, number of qualities about the circuit can be
 
 \begin{figure}[h!]
 	\begin{center}
-		\includegraphics[height=8cm]{regression}
+		\includegraphics[height=7cm]{regression}
 		\caption{Linear regression of $V_L$ vs $R_L$}
 		\label{Fig:SimulationRegression}
 	\end{center}
