@@ -1,0 +1,306 @@
+% Document settings
+\documentclass[11pt]{article}
+% % % % % % % % % % % Define Footer
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+\usepackage[pdftex]{graphicx}
+\usepackage{multirow}
+\usepackage{setspace}
+\pagestyle{plain}
+\usepackage[american voltages]{circuitikz}
+%\usepackage[american]{circuitikz}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{epstopdf}
+%\usepackage{MnSymbol,wasysym}
+\usepackage{amsmath}
+%\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{lipsum}
+\usepackage{siunitx}
+\setlength\parindent{0pt}
+\graphicspath{{images/}{drawings/}}
+\usepackage{float}
+% % % % % % % % % % % Header footer
+% % % % % % % % % % %EDIT THIS % % % % % % % % % % % % % % % % % % % %
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Tech Memo: Experiment 5: RC Circuits}
+\rhead{YOUR NAME-EDIT}
+\lfoot{EE281}
+\cfoot{Date }
+\rfoot{Page \thepage}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+\begin{document}
+	\numberwithin{equation}{subsection}
+	\numberwithin{figure}{subsection}
+	\numberwithin{table}{subsection}
+	\hspace{6in}
+		\includegraphics[scale=0.9,trim=0cm 0in 0in 0.0in,clip]{RIT_KGCOE1}
+\newline
+
+\Huge \textbf{EEEE 281 Experiment 5:\\ RC Circuits}\\
+
+\Large
+\textbf{From:} Your Name (edit) [Department (edit)] \\
+\textbf{To: } Section X (edit) TA: [edit] \\
+\textbf{Date: } Performed: (edit)  Due: (edit) \\
+\textbf{Subject: } Lab 5-RC Circuits\\
+\textbf{Lab Partner(s): } (edit)\\
+\vspace{0.5in}
+	\begin{table}[h!]
+		\centering
+		%\caption{Grading Table}
+		%\label{Table:Grading Table 1}
+		%\begin{tabular}{llllll}
+		\begin{tabular}{|l||l|l|l|l|}
+			\hline
+			Component & Percentage of Grade   & Score \hspace{0.5in} & Comment \hspace{0.75in}  \\
+			\hline
+			Report Formatting & 20~\si{\percent} & & \\	 
+			\hline
+			\hline 
+			Theory: Quoting Step Response Derivation & 5~\si{\percent} & & \\	 
+			 \hline
+		    Hand Calculation: Rise Time Derivation & 5~\si{\percent} & & \\	 
+		    \hline
+		     Hand Calculation: $\tau$/Rise Time Calculations & 5~\si{\percent} & & \\
+			 \hline
+			PSPICE: Setup Conditions & 5~\si{\percent} & & \\	 
+			 \hline
+			PSPICE: Data and Figures & 10~\si{\percent} & & \\	 
+			 \hline
+			PSPICE: Discussion of Simulation & 10~\si{\percent} & & \\	 
+			\hline
+			\hline
+			Hardware: Experimental Setup & 10~\si{\percent} & & \\	 
+			\hline
+			Hardware: Experimental Data and Tables & 10~\si{\percent} & & \\	 
+			\hline
+			Hardware: Discussion of Results & 20~\si{\percent} & & \\	 
+			\hline
+			\textbf{Total Score:}&  & & \\	 
+			\hline
+			\textbf{Graded By:}&  & & \\	 
+			\hline
+		\end{tabular}
+	\end{table}
+\newpage
+\section*{Abstract}
+%\Large \textbf{Abstract} \\
+\normalsize
+The abstract section should contain a summary of what was performed in the lab and should be between 100-200 words.  This should succinctly rephrase the purpose slide (slide 2 and lab packet).  It should also refer to the data collected.   How many circuit topologies were  investigated (2 in this lab)?  What theory/data is observed for each circuit (Hand calculation of rise time, PSPICE simulation extraction of rise time, Oscilloscope trace extraction of rise time). 
+\section {Introduction}
+
+\subsection{Derivation and Hand calculations}
+\label{Section:DerivationHandCalc}
+In this section, (do not submit as an outline)
+\begin{enumerate}
+	\item Quote equation for the step response, $v_c(t)$, in  the series RC circuit. 
+	\item Define the time constant in equation form.
+	\item (\textbf{From Prelab}) Calculate the time constant for the four resistors/capacitor combinations listed in the lab handout.  Include the information in a Table (See Table \ref{Table:TimeConstantTable} below).
+	\item Determine the optimal pulse width, period, and frequency for each RC circuit and include in Table \ref{Table:TimeConstantTable}.
+	\item Derive an expression for the rise time (t 10\% to t  90\%).  Calculate the theoretical rise time for  each RC combination. EDIT Table \ref{Table:TimeConstantTable} below.
+	\begin{table}[h]
+	\centering
+	\caption{Hand calculation of time constant, pulse width, optimal waveform generator period and frequency for each series circuit in the lab.}
+	\label{Table:TimeConstantTable}
+	\begin{tabular}{|c |c|| c|| c | c | c| c|c|c |}\hline
+		Resistance  & Capacitance &  $\tau$ & Pulse & Optimal Period  & Optimal Frequency & Rise Time   \\
+		$\left(\si{\ohm}\right)$ 	  & $\left(\si{\micro\farad}\right)$	 & $\left(\si{\s}\right)$     & Width~$\left(\si{\s}\right)$         & $\left(\si{\s}\right)$ 		    &  $\left(\si{\hertz}\right)$ & $\left(\si{\s}\right)$  \\
+		\hline
+		1~\si{\kilo}& 0.01& & & && \\
+		\hline
+		10~\si{\kilo}& 0.01& & & && \\
+		\hline
+		100~\si{\kilo}& 0.01& & & & &\\
+		\hline
+		1~\si{\mega}& 0.01& & & && \\
+		\hline
+	\end{tabular}
+\end{table}
+	
+\end{enumerate}
+\subsection{PSPICE Simulation of RC Circuit}
+\label{Section:PSPICE}
+In this section, which is to be done as a part of the prelab. \textbf{ Use the section heading above (\ref{Section:PSPICE} PSPICE Simulation of RC Circuit), BUT DO NOT write the rest of the section as an outline.}
+
+Begin by providing a 1 paragraph description of the PSPICE setup. Was a DC simulation used, transient simulation, etc.?  Which \textbf{libraries} and \textbf{PSPICE elements} were used in the simulation? You can borrow from the text of your first tech memo here.  If you do so, please be sure to cite the tech memo. Note the libraries used. You can find the information when you look at the properties of each element.  There will be a reference to a ``.olb'' file.  This is the library name. 
+
+Include a description of the Vpulse supply that was added to the circuit.  Specifically idenitify the values that were adjusted (tr, tf, etc.).  Explain the settings used for the transient simulation.  What was the \textbf{Run to Time} value chosen to be?  Why?  How was the Monte Carlo extraction of rise time performed (iterations, analysis function, etc.)? How were parameters used for the laboratory.
+\clearpage
+\subsubsection{PSPICE Results for Circuits 1 and 2}
+\begin{enumerate}
+	\item	Show the schematic diagram from PSPICE of the simulated circuits (Figure ~\ref{fig:PSPICESchem}).  You only need to include the schematic for the 10~\si{\kilo\ohm} resistor/0.01~\si{\micro\farad} combination. You can show this based on the parameters on the schematic.
+	\begin{figure}[h!]
+		\vspace{2in}
+		\caption{Schematic diagram in PSPICE of circuits 1 and 2.  }
+		\label{fig:PSPICESchem}
+	\end{figure}
+	\item Show the transient simulation and rise time extraction for each of the four circuits (Figs. \ref{fig:PSPICETrans1k} to \ref{fig:PSPICETrans1M}).  \textbf{Have the rise time clearly labeled.}   
+	\begin{enumerate}
+		\item Make sure that the picture from PSPICE mirrors the figures in the prelab presentation.  You should thicken the line, and label the rise time on the figure (font should be legible).
+		\item Caption should indicate the resistance and capacitance, as well as the extracted rise time.
+		\item Provide a short discussion of the simulation results.
+	\end{enumerate}
+\begin{figure}[h!]
+	\vspace{2in}
+	\caption{Transient simulation in PSPICE of circuits 1 and 2 for a 1~\si{\kilo\ohm} resistor and 0.01~\si{\micro\farad} capacitor.  The rise time was XXX~\si{\s}.  }
+	\label{fig:PSPICETrans1k}
+\end{figure}
+\begin{figure}[h!]
+	\vspace{2in}
+	\caption{Transient simulation in PSPICE of circuits 1 and 2 for a 10~\si{\kilo\ohm} resistor and 0.01~\si{\micro\farad} capacitor.  The rise time was XXX~\si{\s}.  }
+	\label{fig:PSPICETrans10k}
+\end{figure}
+\begin{figure}[h!]
+	\vspace{2in}
+	\caption{Transient simulation in PSPICE of circuits 1 and 2 for a 100~\si{\kilo\ohm} resistor and 0.01~\si{\micro\farad} capacitor.  The rise time was XXX~\si{\s}.  }
+	\label{fig:PSPICETrans100k}
+\end{figure}
+\begin{figure}[h!]
+	\vspace{2in}
+	\caption{Transient simulation in PSPICE of circuits 1 and 2 for a 1~\si{\mega\ohm} resistor and 0.01~\si{\micro\farad} capacitor.  The rise time was XXX~\si{\s}.  }
+	\label{fig:PSPICETrans1M}
+\end{figure}
+		\item Summarize the Rise Time from all simulations in Table \ref{Table:RiseTimeTablePSPICE}.
+		\begin{table}[h]
+			\centering
+			\caption{Rise time extraction from PSPICE for each circuit in the lab.}
+			\label{Table:RiseTimeTablePSPICE}
+			\begin{tabular}{|c |c|| c|| c | c | c| c|c |}\hline
+				Resistance  & Capacitance &  Rise time    \\
+				$\left(\si{\ohm}\right)$ 	  & $\left(\si{\micro\farad}\right)$	 & $\left(\si{\s}\right)$   \\
+				
+				\hline
+				1~\si{\kilo}& 0.01&  \\
+				\hline
+				10~\si{\kilo}& 0.01&  \\
+				\hline
+				100~\si{\kilo}& 0.01&  \\
+				\hline
+				1~\si{\mega}& 0.01&  \\
+				\hline
+			\end{tabular}
+		\end{table}
+\end{enumerate}
+\clearpage
+\subsubsection{PSPICE Circuit 1: Monte Carlo}
+Include the Monte Carlo Analysis for the 10 ~\si{\kilo\ohm} resistor.  A figure should be included showing the histogram output and the 100 iterations.  Provide a short explanation of the variation in rise time. 
+Make sure that there is at least 1 paragraph to explain this section.
+\begin{figure}[h!]
+	\vspace{2in}
+	\caption{Monte Carlo extraction of the rise time for the 10~\si{\kilo\ohm} resistor.}
+	\label{fig:MonteCarlo10k}
+\end{figure}
+\section {Hardware}
+This section of the report should present what was done in hardware.  A reader should be able to recreate an experiment from the detail present.  One section discusses the equipment used in the experiment. The remaining sections discuss the results for each circuit.
+\subsection{Equipment Used in the Laboratory}
+Write a short paragraph to detail the equipment used in the laboratory, and specific model numbers. Ideally, you should create a table of the equipment which should be referred to in text (See Table \ref{Table:Equipment} as an example).  The room location where the experiment was performed should be included.  Note that this should be a part of all Tech Memos, as it is an essential piece for other users to replicate your experiment.  \textbf{As you will be likely using the same equipment throughout the term, once the text/tables are established, you may reuse the information with the permission of your instructor/TA. Again, cite your first lab report as a reference.}
+
+\begin{table}[H]
+	\centering
+	\caption{Equipment/Software required for Lab 2.}
+	\label{Table:Equipment}
+	%\begin{tabular}{llllll}
+	\begin{tabular}{|c||c|c|c|c|}
+		\hline
+		Item & Tool & Room      \\
+		\hline
+		Simulation & OrCAD Capture CIS & All Open EE Labs   \\	 
+		\hline 
+		DC Power Supply&  Agilent E3630A  & 09-3170   \\	
+		\hline  
+		DC Power Supply & Agilent E3631A   & 09-3200 \\ 
+		\hline 
+		Multimeter & Agilent E34401A   & 09-3170, 09-3200 \\ 
+		\hline 
+		Waveform Generator & Agilent 33120A & 09-3170, 09-3200 \\
+		\hline
+		Oscilloscope & Textronix TDS2012C & 09-3200  \\
+		\hline
+		Oscilloscope & Agilent DSO 3102A & 09-3170  \\
+		\hline
+	\end{tabular}
+\end{table}
+\subsection{Hardware results from RC Circuit 1 (Voltage measured across the capacitor)}
+\label{Section:HardwareCircuit1}
+\begin{enumerate}
+	\item Show the Oscilloscope trace (Fig. \ref{fig:Circuit1Oscope}) for the 10~\si{\kilo\ohm} resistor/0.01~\si{\micro\farad} combination.  \textbf{Have the rise time clearly labeled.}  Note that the lab pack ONLY calls for this trace. Make sure that the plot clearly shows the date that the picture was taken. \textbf{Include the rise time in the figure caption as well.}
+	\begin{figure}[h!]
+		\vspace{2in}
+		\caption{Oscilloscope trace of Circuit 1 for R=10~\si{\kilo\ohm} and C=0.01~\si{\micro\farad}.  A rise time of XXX~\si{\s} is observed.}
+		\label{fig:Circuit1Oscope}
+	\end{figure}
+	Summarize the results for all four circuits in Table \ref{Table:RiseTimeTableCircuit1Hardware}.
+	\begin{table}[h]
+		\centering
+		\caption{Rise time extraction from hardware for each circuit in the lab.}
+		\label{Table:RiseTimeTableCircuit1Hardware}
+		\begin{tabular}{|c |c|| c|| c | c | c| c|c |}\hline
+			Resistance  & Capacitance &  Rise time    \\
+			$\left(\si{\ohm}\right)$ 	  & $\left(\si{\micro\farad}\right)$	 & $\left(\si{\s}\right)$   \\
+			
+			\hline
+			1~\si{\kilo}& 0.01&  \\
+			\hline
+			10~\si{\kilo}& 0.01&  \\
+			\hline
+			100~\si{\kilo}& 0.01&  \\
+			\hline
+			1~\si{\mega}& 0.01&  \\
+			\hline
+		\end{tabular}
+	\end{table}
+	\item Briefly discuss the results and whether they agree with the hand calculations and PSPICE.
+\end{enumerate}
+\subsection{Hardware results from RC Circuit 2 (Voltage measured across the resistor)}
+\label{Section:HardwareCircuit2}
+\begin{enumerate}
+	\item Show the Oscilloscope (Fig. \ref{fig:Circuit2Oscope}) trace for circuit.  \textbf{Have the rise time clearly labeled.}  Make sure that the plot clearly shows the date that the picture was taken. \textbf{Include the rise time in the figure caption as well.}
+		\begin{figure}[h!]
+		\vspace{2in}
+		\caption{Oscilloscope trace of Circuit 2 for R=10~\si{\kilo\ohm} and C=0.01~\si{\micro\farad}.  A rise time of XXX~\si{\s} is observed.}
+		\label{fig:Circuit2Oscope}
+	\end{figure}
+	\item 	Summarize the results in Table \ref{Table:RiseTimeTableCircuit2Hardware}.
+	\begin{table}[h]
+		\centering
+		\caption{Hardware rise time extraction for Circuit 2.}
+		\label{Table:RiseTimeTableCircuit2Hardware}
+		\begin{tabular}{|c |c|| c|| c | c | c| c|c |}\hline
+			Resistance  & Capacitance &  Rise time    \\
+			$\left(\si{\ohm}\right)$ 	  & $\left(\si{\micro\farad}\right)$	 & $\left(\si{\s}\right)$   \\	
+			\hline
+			10~\si{\kilo}& 0.01&  \\
+			\hline
+		\end{tabular}
+	\end{table}
+	\item Provide an explanation of the shape of the output
+\end{enumerate}
+
+%\section {Discussion}
+%Discuss the results of the experiment.  A table including a percent error combination should be presented, and developed. If there is a discrepancy, provide a justification.  Does the data for the rise time agree with the PSPICE Monte Carlo simulation (this is where you should discuss how the tolerances of the components effect the output)? Explain how switching R and C in Figure 2 changes the output of the circuit (voltage across R-what dictates this voltage?).  Why is there a difference for the rise and fall times for the circuit described in Section \ref{Section:HardwareCircuit3}.
+\section {Conclusions}
+Summarize what was achieved in the experiment. This section should be similar to the abstract in tone, and often is a rephrasing of the abstract. It should summarize whether the experiment matched theoretical calculations and PSPICE extraction. It should be about 100-150 words.  The conclusion differs from the discussion in that it is a brief summary of the discussion section (were the experiments successful?).
+\section{Acknowledgements}
+Acknowledge \textbf{any} source of help received in the experiment/writing the report. This should certainly include your lab partner/teaching assistant/instructor. It may also include other classmates/study partners. State briefly what the nature of the help was.
+\textbf{Your report should include references to appropriate pages in the text, as well as any other sources, websites/etc. consulted in the preparation of the report. }
+
+\begin{thebibliography}{9}
+	\bibitem{AlexanderSadiku}
+	C.K. Alexander, and M.K.O. Sadiku,
+	\emph{Fundamentals of Electric Circuits, 4th Edition},
+	McGraw Hill, pp. xx-yy(EDIT), 2009.
+	\bibitem{RommelLab}
+	S. Rommel,
+	\emph{EEEE 281 Lab 5 Lecture notes},
+	slides xx-yy, Spring 2015.
+\end{thebibliography}
+
+\end{document}
+
+
+
